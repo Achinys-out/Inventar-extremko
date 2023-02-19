@@ -1,12 +1,6 @@
 package src;
-
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.Scanner;
 
-@Getter
-@Setter
 public class Product {
     private int id;
     private String name;
@@ -36,6 +30,45 @@ public class Product {
         return scanner.nextLine();
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
     @Override
     public boolean equals(Object obj) {

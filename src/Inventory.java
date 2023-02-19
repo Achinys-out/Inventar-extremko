@@ -9,46 +9,50 @@ public class Inventory {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        String url = "jdbc:mysql://localhost:3306/inventory";
-        String username = "your-username";
-        String password = "your-password";
+        String url = "jdbc:mysql://localhost:8000/inventory";
+        String username = "username";
+        String password = "password";
+
+
+        Product product1 = new Product("produkt1", 1, 10.0);
+        System.out.printf("NAZOV: " + product1.getName());
+        System.out.printf("POPIS: " + product1.getDescription());
 
         try (Connection conn = DriverManager.getConnection(url, username, password)) {
             InventoryDAO inventoryDao = new InventoryDAO(conn);
 
-            System.out.println("Welcome to the Inventory Manager!");
             while (true) {
-                System.out.println("What would you like to do?");
-                System.out.println("1. Add a new item");
-                System.out.println("2. Update an existing item");
-                System.out.println("3. Delete an item");
-                System.out.println("4. View all items");
-                System.out.println("5. Exit");
+                System.out.println("Vyberte akciu:");
+                System.out.println("1 - Pridať produkt");
+                System.out.println("2 - Editovať existujúci produkt");
+                System.out.println("3 - Vymazať produkt");
+                System.out.println("4 - Zobraziť všetky produkty");
+                System.out.println("5 - Zatvoriť");
                 int choice = input.nextInt();
 
                 switch (choice) {
                     case 1:
-                        System.out.println("Enter the item name:");
+                        System.out.println("Zadajte meno produktu:");
                         String name = input.next();
-                        System.out.println("Enter the quantity:");
+                        System.out.println("Zadajte kvantitu:");
                         int quantity = input.nextInt();
-                        System.out.println("Enter the price:");
+                        System.out.println("Zadajte cenu:");
                         double price = input.nextDouble();
                         inventoryDao.addProduct(new Product(name, quantity, price));
                         break;
 
                     case 2:
-                        System.out.println("Enter the item ID:");
+                        System.out.println("Zadajte ID produktu:");
                         int id = input.nextInt();
-                        System.out.println("Enter the new quantity:");
+                        System.out.println("Zadajte nový počet kusov");
                         quantity = input.nextInt();
-                        System.out.println("Enter the new price:");
+                        System.out.println("Zadajte novú cenu:");
                         price = input.nextDouble();
                         inventoryDao.updateProduct(id, quantity, price);
                         break;
 
                     case 3:
-                        System.out.println("Enter the item ID:");
+                        System.out.println("Zadajte ID produktu:");
                         id = input.nextInt();
                         inventoryDao.deleteProduct(id);
                         break;
@@ -60,15 +64,14 @@ public class Inventory {
                         break;
 
                     case 5:
-                        System.out.println("Goodbye!");
                         System.exit(0);
 
                     default:
-                        System.out.println("Invalid choice.");
+                        System.out.println("Nesprávny úkon.");
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error connecting to database.");
+            System.out.println("Chyba spojenia s databázou.");
             e.printStackTrace();
         }
     }
